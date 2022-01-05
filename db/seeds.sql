@@ -54,3 +54,23 @@ VALUES
   ('Jake', 'Collequan', 2, 6),
   ('Simon', 'Brown', 2, 6);
   
+SELECT dept.name as department, selEmp.* FROM 
+  (
+    SELECT
+      role.dept_id as dept_id,
+      role.title as title,
+      a.first_name as first_name,
+      a.last_name as last_name,
+      a.manager_id as manager_id,
+      CONCAT(b.first_name, " ", b.last_name) AS "manager_name",
+      a.role_id as role_id
+    FROM emp a
+      LEFT JOIN emp b 
+        ON a.manager_id = b.id
+      LEFT JOIN role
+        ON a.role_id = role.id
+  ) selEmp 
+RIGHT JOIN dept
+  ON selEmp.dept_id = dept.id 
+WHERE dept.id = 3;
+              
