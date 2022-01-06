@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./db/connection');
 const apiRoutes = require('./routes/apiRoutes');
+const { promptTrackerAction } = require('./utils/tracker-inquery');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
