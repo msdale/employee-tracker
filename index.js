@@ -1,15 +1,18 @@
-const Employee = require('./lib/Employee.js');
-const Manager = require('./lib/Manager.js');
-const Engineer = require('./lib/Engineer.js');
-const Intern = require('./lib/Intern.js');
-const {ensureDir, writeFile, copyFile} = require('./utils/generate-site.js');
-const { promptEngineerInfo, promptInternInfo, promptTeamInfo } = require('./utils/gather-team-data');
-const generatePage = require('./utils/generate-page');
+//const Employee = require('./lib/Employee.js');
+//const Role = require('./lib/Role.js');
+//const Department = require('./lib/Intern.js');
+const { promptTrackerAction } = require('./utils/tracker_inquirer');
 
-/*
- * Extract data executed from prompts...
- * Populate the team member class object appropriately
- */
+promptTrackerAction('Execute')
+  /*.then((actionToTake) => {
+    if (actionToTake.confirmTakeAction) {
+      promptTrackerAction();
+    }
+  })*/
+  .catch(err => {
+    console.log(err);
+  });
+
 
 /*const extractManager = function(teamData) {
   return new Manager(teamData.managerName,
@@ -46,19 +49,16 @@ const extractInterns = function(teamData) {
                                 eng.internSchool));
   }
   return interns;
-};
+}; */
 
 
 /*
  * Global variables
  */
-/*let manager = {};
-let engineers = [];
-let interns = []; 
+//let employees = [];
+//let roles = [];
+//let interns = []; 
 
-/*
- * Process chain for generating Team Profile HTML
- */
 /*promptTeamInfo()
   .then(teamData => {
     if (teamData.confirmAddMember) {

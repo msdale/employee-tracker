@@ -1,9 +1,9 @@
-DELETE FROM emp;
+DELETE FROM employee;
 DELETE FROM role;
-DELETE FROM dept;
+DELETE FROM department;
 
-ALTER TABLE dept AUTO_INCREMENT = 1;
-INSERT INTO dept
+ALTER TABLE department AUTO_INCREMENT = 1;
+INSERT INTO department
   (name)
 VALUES
   ('Service'),
@@ -34,8 +34,8 @@ VALUES
   ('Executive Manager', 150000, 7);
 
 
-ALTER TABLE emp AUTO_INCREMENT = 1;
-INSERT INTO emp
+ALTER TABLE employee AUTO_INCREMENT = 1;
+INSERT INTO employee
   (first_name, last_name, role_id, manager_id)
 VALUES
   ('Maura', 'Jordan', 14, null),
@@ -54,7 +54,7 @@ VALUES
   ('Jake', 'Collequan', 2, 6),
   ('Simon', 'Brown', 2, 6);
   
-SELECT dept.name as department, selEmp.* FROM 
+SELECT department.name as department, selEmp.* FROM 
   (
     SELECT
       role.dept_id as dept_id,
@@ -64,13 +64,13 @@ SELECT dept.name as department, selEmp.* FROM
       a.manager_id as manager_id,
       CONCAT(b.first_name, " ", b.last_name) AS "manager_name",
       a.role_id as role_id
-    FROM emp a
-      LEFT JOIN emp b 
+    FROM employee a
+      LEFT JOIN employee b 
         ON a.manager_id = b.id
       LEFT JOIN role
         ON a.role_id = role.id
   ) selEmp 
-RIGHT JOIN dept
+RIGHT JOIN department
   ON selEmp.dept_id = dept.id 
-WHERE dept.id = 3;
+WHERE department.id = 3;
               

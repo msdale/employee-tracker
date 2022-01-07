@@ -8,6 +8,13 @@ THEN I am presented with the following options (list):
   add a role
   add an employee
   update an employee role
+  update an employee's manager
+  view employees by manager
+  view employees by department
+  delete a department
+  delete a role
+  delete an employee
+  view salary budget by department
 WHEN I choose to view all departments
 THEN I am presented with a console.table() of data with
     department name
@@ -38,7 +45,6 @@ THEN I am prompted to enter
   department managing the role (choose from list of deptartments)
     and that role is added to the role table
 WHEN I choose to add an employee
-THEN I am prompted to enter
   first name
   last name
   role (choose from list of roles)
@@ -49,3 +55,35 @@ THEN I am prompted to select
   employee to update (list of employees)
   their new role (list of roles)
     and this information is updated in the emp table
+*********    
+**ADDED** 
+*********    
+WHEN I choose to update an employee manager
+THEN I am prompted to select
+  employee to update (list of employees)
+  the new manager (list of managers)
+    and this information is updated in the employee table
+WHEN I choose to view employees by manager    
+THEN I am prompted to select
+  manager by name (list of managers)
+    and the information (table of employees) is displayed
+WHEN I choose to view employees by department
+THEN I am prompted to select
+  department by name (list of departments)
+    and the information (table of employees) is displayed
+WHEN I choose to delete a department
+THEN I am prompted to select
+  department by name (list of departments)
+    and the information (deleted department) is displayed
+WHEN I choose to delete a role
+THEN I am prompted to select
+  role by name (list of roles)
+    and the information (deleted role) is displayed
+WHEN I choose to delete an employee
+THEN I am prompted to select
+  employee by name (list of employee)
+    and the information (deleted employee) is displayed
+WHEN I choose to view a department's salary budget
+THEN I am prompted to select
+  department by name (list of departments)
+    and the information (the total salary budget) is displayed

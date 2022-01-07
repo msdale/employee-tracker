@@ -5,11 +5,11 @@ const inputCheck = require('../../utils/inputCheck');
 
 // Get all roles and their department affiliation
 router.get('/roles', (req, res) => {
-  const sql = `SELECT role.*, dept.name 
+  const sql = `SELECT role.*, department.name 
                 AS dept_name 
                 FROM role 
-                LEFT JOIN dept 
-                ON role.dept_id = dept.id`;
+                LEFT JOIN department 
+                ON role.dept_id = department.id`;
 
   db.query(sql, (err, rows) => {
     if (err) {
@@ -25,11 +25,11 @@ router.get('/roles', (req, res) => {
 
 // Get single role with department affiliation
 router.get('/role/:id', (req, res) => {
-  const sql = `SELECT role.*, dept.name 
+  const sql = `SELECT role.*, department.name 
                AS dept_name 
                FROM role 
-               LEFT JOIN dept 
-               ON role.dept_id = dept.id 
+               LEFT JOIN department 
+               ON role.dept_id = department.id 
                WHERE role.id = ?`;
   const params = [req.params.id];
 

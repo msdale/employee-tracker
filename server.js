@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('./db/connection');
 const apiRoutes = require('./routes/apiRoutes');
-const { promptTrackerAction } = require('./utils/tracker-inquery');
+//const trackerRoutes = require('./routes/trackerRoutes');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -12,6 +12,7 @@ app.use(express.json());
 
 // Use apiRoutes
 app.use('/api', apiRoutes);
+//app.use('/', trackerRoutes);
 
 // Default response for any other request (Not Found)
 app.use((req, res) => {
@@ -21,8 +22,19 @@ app.use((req, res) => {
 // Start server after DB connection
 db.connect(err => {
   if (err) throw err;
-  console.log('Database connected.');
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log('DB Connected');
+  app.listen(PORT, err => {
+    console.log(`Server Connected at PORT: ${PORT}`);
   });
-});
+})
+
+/*promptTrackerAction()
+  .then((actionToTake) => {
+    if (actionToTake.confirmTakeAction) {
+      promptTrackerAction();
+    }
+  })
+  .catch(err => {
+    console.log(err);
+  }); */
+

@@ -5,7 +5,7 @@ const inputCheck = require('../../utils/inputCheck');
 
 // Get all departments
 router.get('/departments', (req, res) => {
-  const sql = `SELECT * from dept`; 
+  const sql = `SELECT * from department`; 
 
   db.query(sql, (err, rows) => {
     if (err) {
@@ -30,7 +30,7 @@ router.post('/department', ({ body }, res) => {
     return;
   }
 
-  const sql = `INSERT INTO dept (name) VALUES (?)`;
+  const sql = `INSERT INTO department (name) VALUES (?)`;
   const params = [
     body.name
   ];
@@ -49,7 +49,7 @@ router.post('/department', ({ body }, res) => {
 
 // Delete a department 
 router.delete('/department/:id', (req, res) => {
-  const sql = `DELETE FROM dept WHERE id = ?`;
+  const sql = `DELETE FROM department WHERE id = ?`;
 
   db.query(sql, req.params.id, (err, result) => {
     if (err) {
