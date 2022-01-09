@@ -1,3 +1,6 @@
+/**
+ * Employee Tracker Application 
+ */
 const inquirer = require('inquirer');
 const { 
         viewDepartments,
@@ -27,6 +30,14 @@ const {
         convertEmployeeToId,
       } = require('../utils/employees');
 
+/**
+ * promptTrackerAction() is the main driver of the application
+ * @param {text} runmsg - A pre-cursor to the initial question.
+ *      Typically use 'Execute' at startup and will automatically
+ *      use 'Continue' for recursed calls.  See how ${runmsg} is used
+ *      in the initial inquirer.prompt() confirm message.
+ * @returns
+ */
 const promptTrackerAction = function (runmsg) {
   return inquirer.prompt([
     {
@@ -58,6 +69,9 @@ const promptTrackerAction = function (runmsg) {
       when: ({ confirmTakeAction }) => confirmTakeAction
     }
   ])
+    /**
+     * Execute the Action choosen from the list above.
+     */
     .then(actionToTake => {
       if (actionToTake.confirmTakeAction) {
         if (actionToTake.chooseAction === 'View all departments') {
@@ -122,12 +136,15 @@ const promptTrackerAction = function (runmsg) {
       }
     })
     .then(data => {
+      // If no response is captured from the chosen task, the app will exit.
       if (data) {
         return data;
       } else {
         process.exit(0);
       }
     })
+    // The response from the executed task is "printed" and the app
+    // prompts for more.
     .then(data => {
       console.table(data);
       return promptTrackerAction('Continue');
@@ -137,6 +154,11 @@ const promptTrackerAction = function (runmsg) {
     });
 };
 
+/**
+ * promptAddDepartment() queries for department data required to
+ *   add another department to the database. 
+ * @returns {Object} Added department row.
+ */
 const promptAddDepartment = async function () {
   let deptData = await inquirer.prompt([
     {
@@ -156,21 +178,11 @@ const promptAddDepartment = async function () {
   return await addDepartment(deptData);
 };
 
-const promptDeleteDepartment = async function () {
-  let departmentList = await listDepartments();
-  let department = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseDepartment',
-      message: 'Choose a department',
-      choices: departmentList
-    }
-  ])
-  let departmentId = await convertDepartmentToId({convertDepartmentToId: department.chooseDepartment});
-  console.log(departmentId[0]);
-  return await deleteDepartment(departmentId[0]);
-};
-
+/**
+ * promptAddRole() queries for role data required to
+ *   add another role to the database. 
+ * @returns {Object} Added role row.
+ */
 const promptAddRole = async function () {
   let departmentList = await listDepartments();
   let roleData = await inquirer.prompt([
@@ -210,6 +222,75 @@ const promptAddRole = async function () {
   let departmentId = await convertDepartmentToId({convertDepartmentToId: roleData.chooseDepartment});
   Object.assign(roleData, {dept_id: departmentId[0].department_id});
   return await addRole(roleData);
+};
+
+/**
+ * promptAddEmployee() queries for employee data required to
+ *   add another employee to the database. 
+ * @returns {Object} Added employee row.
+ */
+const promptAddEmployee = async function () {
+  let managerList = await listManagerNames();
+  let roleList = await listRoleNames();
+  let empData = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'first_name',
+      message: "What is the Employee first name? (Required)",
+      validate: first_name => {
+        if (first_name) {
+          return true;
+        } else {
+          console.log("Please enter the Employee first name!");
+          return false;
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'last_name',
+      message: "What is the Employee last name? (Required)",
+      validate: last_name => {
+        if (last_name) {
+          return true;
+        } else {
+          console.log("Please enter the Employee last name!");
+          return false;
+        }
+      }
+    },
+    {
+      type: 'list',
+      name: 'chooseRole',
+      message: 'Choose a role',
+      choices: roleList
+    },
+    {
+      type: 'list',
+      name: 'chooseManager',
+      message: 'Choose a manager',
+      choices: managerList
+    }
+  ]);
+  let employeeId = await convertEmployeeToId({convertEmployeeToId: empData.chooseManager});
+  let managerId = {manager_id: employeeId[0].employee_id};
+  let roleId = await convertRoleToId({convertRoleToId: empData.chooseRole});
+  Object.assign(empData, managerId, roleId[0]);
+  return await addEmployee(empData);
+};
+const promptDeleteDepartment = async function () {
+  let departmentList = await listDepartments();
+  let department = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'chooseDepartment',
+      message: 'Choose a department',
+      choices: departmentList
+    }
+  ])
+  let departmentId = await convertDepartmentToId({convertDepartmentToId: department.chooseDepartment});
+  console.log(departmentId[0]);
+  return await deleteDepartment(departmentId[0]);
 };
 
 const promptDeleteRole = async function () {
@@ -390,55 +471,6 @@ const promptListManagers = async function (data) {
   return passThruData;
 }
 
-const promptAddEmployee = async function () {
-  let managerList = await listManagerNames();
-  let roleList = await listRoleNames();
-  let empData = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'first_name',
-      message: "What is the Employee first name? (Required)",
-      validate: first_name => {
-        if (first_name) {
-          return true;
-        } else {
-          console.log("Please enter the Employee first name!");
-          return false;
-        }
-      }
-    },
-    {
-      type: 'input',
-      name: 'last_name',
-      message: "What is the Employee last name? (Required)",
-      validate: last_name => {
-        if (last_name) {
-          return true;
-        } else {
-          console.log("Please enter the Employee last name!");
-          return false;
-        }
-      }
-    },
-    {
-      type: 'list',
-      name: 'chooseRole',
-      message: 'Choose a role',
-      choices: roleList
-    },
-    {
-      type: 'list',
-      name: 'chooseManager',
-      message: 'Choose a manager',
-      choices: managerList
-    }
-  ]);
-  let employeeId = await convertEmployeeToId({convertEmployeeToId: empData.chooseManager});
-  let managerId = {manager_id: employeeId[0].employee_id};
-  let roleId = await convertRoleToId({convertRoleToId: empData.chooseRole});
-  Object.assign(empData, managerId, roleId[0]);
-  return await addEmployee(empData);
-};
 
 const promptDeleteEmployee = async function () {
   let employeeList = await listEmployeeNames();
