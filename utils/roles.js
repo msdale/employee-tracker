@@ -3,6 +3,11 @@ const inputCheck = require('../utils/inputCheck');
 const util = require('util');
 const query = util.promisify(db.query).bind(db);
 
+/**
+ * viewRoles() queries the role table and joins with department table
+ *   to provide the department name in the results.  
+ * @returns {Object} The query result.
+ */
 const viewRoles = async function() {
   const sql = `SELECT role.*, department.name 
   AS dept_name 
@@ -18,6 +23,13 @@ const viewRoles = async function() {
   return rows;
 }
 
+/**
+ * convertRoleToId() accepts a role (title) and queries for the role id
+ *   representing that role.
+ * @param {Object} input - contains the role id element with it's value
+ *                         to facilitate the parameterized query. 
+ * @returns - The role id representing the role (title) value. 
+ */
 const convertRoleToId = async function(input) {
   const errors = inputCheck(
     input,
@@ -38,6 +50,13 @@ const convertRoleToId = async function(input) {
   return rows;
 }
 
+/**
+ * addRole() accepts a role (title), salary, and department id and
+ *   and persists the role data in the role table.
+ * @param {Object} input - contains the role (title), salary, and
+ *   and associated department id. 
+ * @returns - The new role persisted in the role table. 
+ */
 const addRole = async function(input) {
   const errors = inputCheck(
     input,
@@ -67,6 +86,12 @@ const addRole = async function(input) {
   return retResults;
 }
 
+/**
+ * deleteRole() deletes the role identified by the role id value
+ *   in the input parameter from the role table.
+ * @param {Object} input - contains the role_id value to be deleted.
+ * @returns - deletion results.
+ */
 const deleteRole = async function(input) {
   const errors = inputCheck(
     input,
@@ -84,6 +109,10 @@ const deleteRole = async function(input) {
   return results;
 }
 
+/**
+ * listRoleNames() queries the role table for all roles.
+ * @returns - All role titles in the role table.
+ */
 const listRoleNames = async function() {
   const sql = `SELECT title as "name" FROM role ORDER BY name`;
   let rows;
