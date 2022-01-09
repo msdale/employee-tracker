@@ -278,35 +278,13 @@ const promptAddEmployee = async function () {
   Object.assign(empData, managerId, roleId[0]);
   return await addEmployee(empData);
 };
-const promptDeleteDepartment = async function () {
-  let departmentList = await listDepartments();
-  let department = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseDepartment',
-      message: 'Choose a department',
-      choices: departmentList
-    }
-  ])
-  let departmentId = await convertDepartmentToId({convertDepartmentToId: department.chooseDepartment});
-  console.log(departmentId[0]);
-  return await deleteDepartment(departmentId[0]);
-};
 
-const promptDeleteRole = async function () {
-  let roleList = await listRoleNames();
-  let role = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseRole',
-      message: 'Choose a role',
-      choices: roleList
-    }
-  ])
-  let roleId = await convertRoleToId({convertRoleToId: role.chooseRole});
-  return await deleteRole(roleId[0]);
-};
-
+/**
+ * promptUpdateEmployeeRole() queries for an employee picked from a
+ *   list, as well as a role picked from a role list...to update
+ *   the chosen employee with different role (title). 
+ * @returns {Object} Updated employee row.
+ */
 const promptUpdateEmployeeRole = async function () {
   let roleList = await listRoleNames();
   let empData = await inquirer.prompt([
@@ -349,6 +327,12 @@ const promptUpdateEmployeeRole = async function () {
   return await updateEmployeeRole(empData);
 };
 
+/**
+ * promptUpdateEmployeeManager() queries for an employee picked from a
+ *   list, as well as a manager picked from a manager list...to update
+ *   the chosen employee with different manager. 
+ * @returns {Object} Updated employee row.
+ */
 const promptUpdateEmployeeManager = async function () {
   let managerList = await listManagerNames();
   let empData = await inquirer.prompt([
@@ -390,103 +374,11 @@ const promptUpdateEmployeeManager = async function () {
   return await updateEmployeeManager(empData);
 };
 
-const promptListEmployees = async function (data) {
-  let passThruData = {};
-  if (data) passThruData = data;
-
-  let employeeList = await listEmployeeNames();
-  let employeeName = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseEmployee',
-      message: 'Choose an employee',
-      choices: employeeList
-    }
-  ]);
-  Object.assign(passThruData, employeeName);
-  let employeeId = await convertEmployeeToId({convertEmployeeToId: employeeName.chooseEmployee});
-  Object.assign(passThruData, employeeId[0]);
-  return passThruData;
-}
-
-const promptListRoles = async function (data) {
-  let passThruData = {};
-  if (data) passThruData = data;
-
-  let roleList = await listRoleNames();
-  let roleName = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseRole',
-      message: 'Choose a role',
-      choices: roleList
-    }
-  ]);
-  Object.assign(passThruData, roleName);
-  let roleId = await convertRoleToId({convertRoleToId: roleName.chooseRole});
-  Object.assign(passThruData, roleId[0]);
-  return passThruData;
-}
-
-const promptListDepartments = async function (data) {
-  let passThruData = {};
-  if (data) passThruData = data;
-
-  let departmentList = await listDepartments();
-  let deptList = departmentList.map(item => {
-    return item.department;
-  })
-
-  let departmentName = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseDepartment',
-      message: 'Choose a department',
-      choices: departmentList
-    }
-  ]);
-  Object.assign(passThruData, departmentName);
-  let departmentId = await convertDepartmentToId({convertDepartmentToId: departmentName.chooseDepartment});
-  Object.assign(passThruData, departmentId[0]);
-  return passThruData;
-}
-
-const promptListManagers = async function (data) {
-  let passThruData = {};
-  if (data) passThruData = data;
-
-  let managerList = await listManagerNames();
-  let managerName = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseManager',
-      message: 'Choose a manager',
-      choices: managerList
-    }
-  ]);
-  Object.assign(passThruData, managerName);
-  let employeeId = await convertEmployeeToId({convertEmployeeToId: managerName.chooseManager});
-  let managerId = {manager_id: employeeId[0].employee_id};
-  Object.assign(passThruData, managerId);
-  return passThruData;
-}
-
-
-const promptDeleteEmployee = async function () {
-  let employeeList = await listEmployeeNames();
-  let employee = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'chooseEmployee',
-      message: 'Choose an employee',
-      choices: employeeList
-    }
-  ])
-  let employeeId = await convertEmployeeToId({convertEmployeeToId: employee.chooseEmployee});
-  console.log(employeeId);
-  return await deleteEmployee(employeeId[0]);
-};
-
+/**
+ * promptViewEmployeesByManager() queries for a manager picked from a
+ *   list, and returns a listing of all employees under that chosen manager. 
+ * @returns {Object} Employees working for the chosen manager.
+ */
 const promptViewEmployeesByManager = async function () {
   let managerList = await listManagerNames();
   let managerName = await inquirer.prompt([
@@ -502,6 +394,11 @@ const promptViewEmployeesByManager = async function () {
   return await viewEmployeesByManager(managerId);
 };
 
+/**
+ * promptViewEmployeesByDepartment() queries for a department picked from a
+ *   list, and returns a listing of all employees belonging to that department. 
+ * @returns {Object} Employees belonging to the chosen department.
+ */
 const promptViewEmployeesByDepartment = async function () {
   let departmentList = await listDepartments();
   let department = await inquirer.prompt([
@@ -516,6 +413,70 @@ const promptViewEmployeesByDepartment = async function () {
   return await viewEmployeesByDepartment(department_id[0]);
 };
 
+/**
+ * promptDeleteDepartment() queries for a department picked from a
+ *   list, and removes that department from the department table.
+ * @returns {Object} Results of the delete process.
+ */
+const promptDeleteDepartment = async function () {
+  let departmentList = await listDepartments();
+  let department = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'chooseDepartment',
+      message: 'Choose a department',
+      choices: departmentList
+    }
+  ])
+  let departmentId = await convertDepartmentToId({convertDepartmentToId: department.chooseDepartment});
+  console.log(departmentId[0]);
+  return await deleteDepartment(departmentId[0]);
+};
+
+/**
+ * promptDeleteRole() queries for a role (title) picked from a
+ *   list, and removes that role from the role table.
+ * @returns {Object} Results of the delete process.
+ */
+const promptDeleteRole = async function () {
+  let roleList = await listRoleNames();
+  let role = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'chooseRole',
+      message: 'Choose a role',
+      choices: roleList
+    }
+  ])
+  let roleId = await convertRoleToId({convertRoleToId: role.chooseRole});
+  return await deleteRole(roleId[0]);
+};
+
+/**
+ * promptDeleteEmployee() queries for an employee picked from a
+ *   list, and removes that employee from the employee table.
+ * @returns {Object} Results of the delete process.
+ */
+const promptDeleteEmployee = async function () {
+  let employeeList = await listEmployeeNames();
+  let employee = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'chooseEmployee',
+      message: 'Choose an employee',
+      choices: employeeList
+    }
+  ])
+  let employeeId = await convertEmployeeToId({convertEmployeeToId: employee.chooseEmployee});
+  console.log(employeeId);
+  return await deleteEmployee(employeeId[0]);
+};
+
+/**
+ * promptViewSalaryBudget() queries for a department picked from a
+ *   list, and summarizes the total salary budget for that department
+ * @returns {Object} Summary value of total salary budget for the chosen department.
+ */
 const promptViewSalaryBudget = async function () {
   let departmentList = await listDepartments();
   let department = await inquirer.prompt([
