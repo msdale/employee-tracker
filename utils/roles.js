@@ -26,8 +26,8 @@ const viewRoles = async function() {
 /**
  * convertRoleToId() accepts a role (title) and queries for the role id
  *   representing that role.
- * @param {Object} input - contains the role id element with it's value
- *                         to facilitate the parameterized query. 
+ * @param {Object} input - contains the role (title) element with it's value
+ *   to facilitate the parameterized query. 
  * @returns - The role id representing the role (title) value. 
  */
 const convertRoleToId = async function(input) {
