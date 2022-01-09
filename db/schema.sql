@@ -7,6 +7,7 @@ CREATE TABLE department (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(30) NOT NULL
 );
+ALTER TABLE department ADD UNIQUE dept_idx(name);
 
 CREATE TABLE role (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -18,6 +19,7 @@ CREATE TABLE role (
     REFERENCES department(id)
     ON DELETE SET NULL
 );
+ALTER TABLE role ADD UNIQUE role_idx(title);
 
 CREATE TABLE employee (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -34,4 +36,5 @@ CREATE TABLE employee (
     REFERENCES employee(id)
     ON DELETE SET NULL
 );
+ALTER TABLE employee ADD UNIQUE emp_idx(first_name, last_name);
 

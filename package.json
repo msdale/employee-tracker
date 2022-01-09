@@ -1,10 +1,11 @@
 {
   "name": "employee-tracker",
   "version": "1.0.0",
-  "description": "Manage organizational employee data.  Can be used for organizational charting and department-level cost budgeting.",
+  "description": "Employee management Application",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node employee-tracker.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,6 @@
   },
   "homepage": "https://github.com/msdale/employee-tracker#readme",
   "dependencies": {
-    "axios": "^0.24.0",
     "express": "^4.17.2",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"

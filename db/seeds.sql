@@ -71,6 +71,6 @@ SELECT department.name as department, selEmp.* FROM
         ON a.role_id = role.id
   ) selEmp 
 RIGHT JOIN department
-  ON selEmp.dept_id = dept.id 
+  ON selEmp.dept_id = department.id 
 WHERE department.id = 3;
               
