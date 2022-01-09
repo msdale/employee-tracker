@@ -34,7 +34,6 @@ const promptTrackerAction = (runmsg) => {
     }
   ])
     .then(actionToTake => {
-      console.log(actionToTake);
       if (actionToTake.confirmTakeAction) {
         if (actionToTake.chooseAction === 'View all departments') {
           console.log('process -> View all departments');
