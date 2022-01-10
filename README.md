@@ -19,9 +19,27 @@ A node-based CLI app for managing employee roles and accountabilities.
 
 ## Installation
 
-To install locally, clone this repository to your local environment.  This is a node application, so node must be installed.  If you need to install node, check out this link  https://nodejs.org/en/download/.  Once node (and npm) are installled, attach to the repository root directory and update npm dependencies with the following commands:
+To install locally, clone this repository to your local environment.  This is a node application, so node must be installed.  MySQL must also be installed locally.  For mySQL installation see https://dev.mysql.com/doc/refman/8.0/en/installing.html  If you need to install node, check out this link  https://nodejs.org/en/download/.  Once mySQL and node (and npm) are installed, attach to the repository root directory and update npm dependencies with the following commands:
 
 * npm install jest express mysql2 inquirer
+
+To get started, first execute the 3 database initialization scripts.  Attach to the root directory of the repository and connect to mySQL, then type the source commands...
+
+mysql> source db/db.sql
+
+mysql> source db/schema.sql
+
+mysql> source db/seeds.sql
+
+The first 2 are required.  The db/seeds.sql script is only there to provide some initial test data.
+
+See the installation demo below...
+
+
+https://user-images.githubusercontent.com/90280725/148718689-3f711837-cc06-472f-9d59-8fcdffc75c02.mp4
+
+
+
 
 ## Usage
 
