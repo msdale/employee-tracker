@@ -1,48 +1,44 @@
-# note-taker
+# employee-tracker 
 
 ## Description
 
-A node-based web app for creating and retrieving notes.
+A node-based CLI app for managing employee roles and accountabilities.
 
 
-![screenshot](public/assets/images/note-taker-screenshot.png)
+![screenshot](./images/screen-sample.png)
 
 
 ## Table Of Contents
 
-- [note-taker](#note-taker)
+- [employee-tracker](#employee-tracker)
   - [Description](#description)
   - [Table Of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
-  - [Tests](#tests)
   - [Questions](#questions)
 
 ## Installation
 
 To install locally, clone this repository to your local environment.  This is a node application, so node must be installed.  If you need to install node, check out this link  https://nodejs.org/en/download/.  Once node (and npm) are installled, attach to the repository root directory and update npm dependencies with the following commands:
 
-* npm install
-* npm install jest
-* npm install express
-* npm install fs-extra
-* npm install short-unique-id
+* npm install jest express mysql2 inquirer
 
 ## Usage
 
-To execute the application click on the following Heroku deployed link:
-https://msdale-note-taker.herokuapp.com/
+To execute the application, from the root directory of the cloned repository, type the following:
 
-If you'd like, you can execute the app locally.  Follow the "Installation" instructions above.  Start up the application server with the command; 'npm start', or 'node server.js' from within the root directory of the cloned repository, then connect to... 
+node empoyee-tracker.js
 
-http://localhost:3002/
+OR
 
-## Tests
+npm start
 
-Used Jest to unit test the ./lib/notes.js middleware functionality.  From the root directory execute the following test (there is only one test suite with 4 tests):  
+Follow the command-line prompts...
 
-* npm run test
-  
+See the following demo...
+
+DEMO LINK
+
 ## Questions
 
 Any questions, please contact Mark Dale.
