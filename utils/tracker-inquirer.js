@@ -1,6 +1,7 @@
 /**
  * Employee Tracker Application 
  */
+const cTable = require('console.table');
 const inquirer = require('inquirer');
 const { 
         viewDepartments,
