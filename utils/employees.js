@@ -3,6 +3,12 @@ const inputCheck = require('../utils/inputCheck');
 const util = require('util');
 const query = util.promisify(db.query).bind(db);
 
+/**
+ * viewEmployees() queries the employee table and joins with role
+ *   and department tables to provide title, salary and department
+ *   in the results.  
+ * @returns {Object} The query result.
+ */
 const viewEmployees = async function() {
   const sql = `SELECT 
                   a.*,
@@ -26,6 +32,11 @@ const viewEmployees = async function() {
   return rows;
 }
 
+/**
+ * listEmployeeNames() queries the employee table for all names.
+ * @returns - All employee names (concatenation of first and last
+ *    names) in the employee table.
+ */
 const listEmployeeNames = async function() {
   const sql = `SELECT
                 CONCAT(first_name, " ", last_name) AS "name"
@@ -40,6 +51,13 @@ const listEmployeeNames = async function() {
   return rows;
 }
 
+/**
+ * convertEmployeeToId() accepts an employee name and queries for the
+ *   employee id representing that employee.
+ * @param {Object} input - contains the name element with it's value
+ *   to facilitate the parameterized query. 
+ * @returns - The employee id representing the employee name value. 
+ */
 const convertEmployeeToId = async function(input) {
   const errors = inputCheck(
     input,
@@ -60,6 +78,11 @@ const convertEmployeeToId = async function(input) {
   return rows;
 }
 
+/**
+ * listManagerNames() queries the employee table for all names of managers.
+ * @returns - All manager names (concatenation of first and last
+ *    names) in the employee table.
+ */
 const listManagerNames = async function() {
   const sql = `SELECT
                 CONCAT(first_name, " ", last_name) AS "name"
@@ -77,6 +100,14 @@ const listManagerNames = async function() {
   return rows;
 }
 
+/**
+ * addEmployee() accepts an employee first name, last name,
+ *   role id and manager id, and persists the employee data
+ *   in the employee table.
+ * @param {Object} input - contains the employee first_name,
+ *   last_name, role_id and manager id.
+ * @returns - The new employee persisted in the employee table. 
+ */
 const addEmployee = async function(input) {
   const errors = inputCheck(
     input,
@@ -108,6 +139,13 @@ const addEmployee = async function(input) {
   return retResults;
 }
 
+/**
+ * updateEmployeeRole() accepts a role id, first name, and last name as input
+ *   to facilitate a role id update of the named employee.
+ * @param {Object} input - contains the role_id, first_name, and last_name
+ *   elements to facilitate the update.
+ * @returns The updated employee.
+ */
 const updateEmployeeRole = async function(input) {
   const errors = inputCheck(
     input,
@@ -140,6 +178,12 @@ const updateEmployeeRole = async function(input) {
   return sqlSelResults;
 }
 
+/**
+ * deleteEmployee() deletes the employee identified by the employee id value
+ *   in the input parameter.
+ * @param {Object} input - contains the employee_id value to be deleted.
+ * @returns - deletion results.
+ */
 const deleteEmployee = async function(input) {
   const errors = inputCheck(
     input,
@@ -157,6 +201,13 @@ const deleteEmployee = async function(input) {
   return results;
 }
 
+/**
+ * updateEmployeeManager() accepts a manager id, first name, and last name as input
+ *   to facilitate a manager id update of the named employee.
+ * @param {Object} input - contains the manager_id, first_name, and last_name
+ *   elements to facilitate the update.
+ * @returns The updated employee.
+ */
 const updateEmployeeManager = async function(input) {
   const errors = inputCheck(
     input,
@@ -187,6 +238,12 @@ const updateEmployeeManager = async function(input) {
   return sqlResults;
 }
 
+/**
+ * viewEmployeesByManager() accepts a manager_id value to list all the employees
+ *   belonging to that manager.
+ * @param {Object} input - Contains the manager_id element. 
+ * @returns All the employees belonging to the identified manager. 
+ */
 const viewEmployeesByManager = async function(input) {
   const errors = inputCheck(
     input,
@@ -216,6 +273,12 @@ const viewEmployeesByManager = async function(input) {
   return rows;
 }
 
+/**
+ * viewEmployeesByDepartment() accepts a department id value to list all the employees
+ *   belonging to that department.
+ * @param {Object} input - Contains the department_id element. 
+ * @returns All the employees belonging to the identified department. 
+ */
 const viewEmployeesByDepartment = async function(input) {
   const errors = inputCheck(
     input,
@@ -247,6 +310,13 @@ const viewEmployeesByDepartment = async function(input) {
   return rows;
 }
 
+/**
+ * viewSalaryBudget() accepts the department id to summarize the total
+ *   salary budget associated with the identified department.
+ * @param {Object} input - Contains the department_id value. 
+ * @returns - A summarized salary amount associated with the identified
+ *   department.
+ */
 const viewSalaryBudget = async function(input) {
   const errors = inputCheck(
     input,

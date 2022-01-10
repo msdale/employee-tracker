@@ -3,6 +3,11 @@ const inputCheck = require('../utils/inputCheck');
 const util = require('util');
 const query = util.promisify(db.query).bind(db);
 
+/**
+ * viewDepartments() queries the departments table to
+ *   provide the department name in the results.  
+ * @returns {Object} The query result.
+ */
 const viewDepartments = async function() {
   const sql = `SELECT * from department`; 
   let rows;
@@ -14,6 +19,10 @@ const viewDepartments = async function() {
   return rows;
 }
 
+/**
+ * listDepartments() queries the department table for all department names.
+ * @returns - All department names in the department table.
+ */
 const listDepartments = async function() {
   const sql = `SELECT name FROM department ORDER BY name`; 
   let rows;
@@ -25,6 +34,12 @@ const listDepartments = async function() {
   return rows;
 }
 
+/**
+ * addDepartment() accepts a department name
+ *   and persists the department data in the department table.
+ * @param {Object} input - contains the department name.
+ * @returns - The new department persisted in the department table. 
+ */
 const addDepartment = async function(input) {
   const errors = inputCheck(
     input,
@@ -48,6 +63,13 @@ const addDepartment = async function(input) {
   return retResults;
 }
 
+/**
+ * deleteDepartment() deletes the department identified by the
+ *   department id element in the input parameter object.
+ * @param {Object} input - contains the department_id value
+ *   to be deleted.
+ * @returns - deletion results.
+ */
 const deleteDepartment = async function(input) {
   const errors = inputCheck(
     input,
@@ -65,6 +87,13 @@ const deleteDepartment = async function(input) {
   return results;
 }
 
+/**
+ * convertDepartmentToId() accepts a department name and queries for
+ *   the role id representing that department name.
+ * @param {Object} input - contains the department element with it's
+ *   name value to facilitate the query. 
+ * @returns - The department id representing the department name. 
+ */
 const convertDepartmentToId = async function(input) {
   const errors = inputCheck(
     input,
