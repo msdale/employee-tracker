@@ -38,9 +38,7 @@ THE FIRST 2 SQL SCRIPTS SHOULD ONLY BE RUN TO RE-INITIALIZE THE MYSQL DATABASE A
 See demo of the installation process below...
 
 
-https://user-images.githubusercontent.com/90280725/148718689-3f711837-cc06-472f-9d59-8fcdffc75c02.mp4
-
-
+https://user-images.githubusercontent.com/90280725/148815844-bb2852ef-0bae-453c-b724-5b31d7ee5214.mp4
 
 
 ## Usage
