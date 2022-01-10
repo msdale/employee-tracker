@@ -25,18 +25,11 @@ To install locally, clone this repository to your local environment.  This is a 
 
 To get started, first execute the 3 database initialization scripts.  Attach to the root directory of the repository and connect to mySQL, then type the source commands...
 
-msdale@sys76:~/Desktop/projects/employee-tracker$ mysql -u root -p
-<enter password>
-...
 mysql> source db/db.sql
-...
 mysql> source db/schema.sql
-...
 mysql> source db/seeds.sql
-...
-mysql> quit
-Bye
-msdale@sys76:~/Desktop/projects/employee-tracker$
+
+The first 2 are required.  The db/seeds.sql script is only there to provide some initial test data.
 
 See the installation demo below...
 
