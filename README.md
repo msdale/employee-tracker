@@ -26,7 +26,9 @@ To install locally, clone this repository to your local environment.  This is a 
 To get started, first execute the 3 database initialization scripts.  Attach to the root directory of the repository and connect to mySQL, then type the source commands...
 
 mysql> source db/db.sql
+
 mysql> source db/schema.sql
+
 mysql> source db/seeds.sql
 
 The first 2 are required.  The db/seeds.sql script is only there to provide some initial test data.
