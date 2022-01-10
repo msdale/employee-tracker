@@ -31,7 +31,9 @@ mysql> source db/schema.sql
 
 mysql> source db/seeds.sql        (optional)
 
-The first 2 are required.  The 3rd, db/seeds.sql, is only there to provide some initial test data.
+The first 2 are required INITIALLY.  The last, db/seeds.sql, provides some initial test data.
+
+THE FIRST 2 SQL SCRIPTS SHOULD ONLY BE RUN TO RE-INITIALIZE THE MYSQL DATABASE AS A FIRST-TIME SETUP.  Or they can be run to restart from the beginning, as part of a test scenario.
 
 See demo of the installation process below...
 
