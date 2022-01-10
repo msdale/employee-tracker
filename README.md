@@ -53,6 +53,23 @@ npm start
 
 Follow the command-line prompts...
 
+These are the listed functional options:
+
+* View all departments
+* View all roles
+* View all employees
+* Add a department
+* Add a role
+* Add an employee
+* Update an employee's role
+* Update an employee's manager
+* View employees by manager
+* View employees by department
+* Delete a department
+* Delete a role
+* Delete an employee
+* View the salary budget for a department
+
 See the following demo...
 
 
