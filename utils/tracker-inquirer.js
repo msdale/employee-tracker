@@ -323,7 +323,6 @@ const promptUpdateEmployeeRole = async function () {
   ]);
   let roleId = await convertRoleToId({convertRoleToId: empData.chooseRole});
   Object.assign(empData, roleId[0]);
-  console.log(JSON.stringify(empData));
   return await updateEmployeeRole(empData);
 };
 
@@ -429,7 +428,6 @@ const promptDeleteDepartment = async function () {
     }
   ])
   let departmentId = await convertDepartmentToId({convertDepartmentToId: department.chooseDepartment});
-  console.log(departmentId[0]);
   return await deleteDepartment(departmentId[0]);
 };
 
@@ -468,7 +466,6 @@ const promptDeleteEmployee = async function () {
     }
   ])
   let employeeId = await convertEmployeeToId({convertEmployeeToId: employee.chooseEmployee});
-  console.log(employeeId);
   return await deleteEmployee(employeeId[0]);
 };
 
