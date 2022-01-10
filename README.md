@@ -19,9 +19,28 @@ A node-based CLI app for managing employee roles and accountabilities.
 
 ## Installation
 
-To install locally, clone this repository to your local environment.  This is a node application, so node must be installed.  If you need to install node, check out this link  https://nodejs.org/en/download/.  Once node (and npm) are installled, attach to the repository root directory and update npm dependencies with the following commands:
+To install locally, clone this repository to your local environment.  This is a node application, so node must be installed.  MySQL must also be installed locally.  For mySQL installation see https://dev.mysql.com/doc/refman/8.0/en/installing.html  If you need to install node, check out this link  https://nodejs.org/en/download/.  Once mySQL and node (and npm) are installed, attach to the repository root directory and update npm dependencies with the following commands:
 
 * npm install jest express mysql2 inquirer
+
+To get started, first execute the 3 database initialization scripts.  Attach to the root directory of the repository and connect to mySQL, then type the source commands...
+
+msdale@sys76:~/Desktop/projects/employee-tracker$ mysql -u root -p
+<enter password>
+...
+mysql> source db/db.sql
+...
+mysql> source db/schema.sql
+...
+mysql> source db/seeds.sql
+...
+mysql> quit
+Bye
+msdale@sys76:~/Desktop/projects/employee-tracker$
+
+See the installation demo below...
+
+
 
 ## Usage
 
